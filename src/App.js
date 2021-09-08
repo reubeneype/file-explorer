@@ -20,6 +20,7 @@ function App() {
 const Folder = (props) => {
   const [isOpen, setIsOpen]= useState(true);
   const { name, children} = props;
+  const direction = isOpen ? 'down' : 'right';
   console.log(name, children);
   
   const handleClick = () => {
@@ -27,7 +28,11 @@ const Folder = (props) => {
   }
 
   return <div>
-    <span onClick={handleClick}>{name}</span>
+    <span onClick={handleClick}>
+      <i className="blue folder icon"></i>
+      <i className= {`caret ${direction} icon`}></i>
+      </span>
+      {name}
     <div style={{marginLeft:'17px'}}>
       {isOpen ? children : null}
     </div>
@@ -36,7 +41,17 @@ const Folder = (props) => {
 };
 
 const File = (props) => {
-  return <div>{props.name}</div>
+  const {name} = props;
+  const fileExtension = name.split('.')[1];
+  const fileIcons = {
+    mp3: 'headphones',
+    jpg: 'file image',
+    png: 'file image outline'
+  };
+  return <div>
+    <i className={`${fileIcons[fileExtension]} icon`}></i>
+    {props.name}
+    </div>
 }
 
 export default App;
